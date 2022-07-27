@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luck.KubeWalnut.Persistence
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luck.KubeWalnut.Infrastructure", "src\Luck.KubeWalnut.Infrastructure\Luck.KubeWalnut.Infrastructure.csproj", "{22FD5785-320E-47B7-8CB7-F042A0E987A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luck.KubeWalnut.Adapter", "src\Luck.KubeWalnut.Adapter\Luck.KubeWalnut.Adapter.csproj", "{1290FB3E-7D7E-4C11-BA73-64AA2D12C06C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{22FD5785-320E-47B7-8CB7-F042A0E987A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22FD5785-320E-47B7-8CB7-F042A0E987A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22FD5785-320E-47B7-8CB7-F042A0E987A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1290FB3E-7D7E-4C11-BA73-64AA2D12C06C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1290FB3E-7D7E-4C11-BA73-64AA2D12C06C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1290FB3E-7D7E-4C11-BA73-64AA2D12C06C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1290FB3E-7D7E-4C11-BA73-64AA2D12C06C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D61DD53A-4E54-4972-B34D-0D9E030854DE} = {20E1D14D-006D-460D-AF57-D673310B5941}
@@ -54,5 +60,6 @@ Global
 		{F2C0CE4E-BC7F-4527-91AD-6BA92ECE8367} = {4906B6DD-9D02-4B6D-BB24-90A843031431}
 		{9190956C-2980-4BDC-8E92-D6F110DE0ACD} = {AF3D0651-1A55-4699-9BED-0214C9D456C7}
 		{22FD5785-320E-47B7-8CB7-F042A0E987A8} = {AF3D0651-1A55-4699-9BED-0214C9D456C7}
+		{1290FB3E-7D7E-4C11-BA73-64AA2D12C06C} = {AF3D0651-1A55-4699-9BED-0214C9D456C7}
 	EndGlobalSection
 EndGlobal

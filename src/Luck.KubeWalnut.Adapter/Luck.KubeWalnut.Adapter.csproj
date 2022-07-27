@@ -5,7 +5,5 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-    <ItemGroup>
-        <PackageReference Include="Luck.DDD.Domain" Version="1.0.0" />
-    </ItemGroup>
+
 </Project>
