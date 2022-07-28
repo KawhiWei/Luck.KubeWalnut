@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Luck.KubeWalnut.Adapter\Luck.KubeWalnut.Adapter.csproj" />
     <ProjectReference Include="..\Luck.KubeWalnut.Application\Luck.KubeWalnut.Application.csproj" />
   </ItemGroup>
 </Project>

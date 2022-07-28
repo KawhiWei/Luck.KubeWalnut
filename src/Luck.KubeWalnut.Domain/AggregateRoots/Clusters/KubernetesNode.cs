@@ -2,7 +2,7 @@ namespace Luck.KubeWalnut.Domain.AggregateRoots.Clusters;
 
 public class KubernetesNode
 {
-    public KubernetesNode(string name, Resource capacityResource, Resource allocatableResource, Resource usageResource)
+    public KubernetesNode(string name, Resource capacityResource, Resource allocatableResource, Resource? usageResource)
     {
         Name = name;
         CapacityResource = capacityResource;
@@ -29,20 +29,5 @@ public class KubernetesNode
     /// <summary>
     /// 已用资源
     /// </summary>
-    public Resource UsageResource { get; private set; } = default!;
-}
-
-
-public class Resource
-{
-    /// <summary>
-    /// Cpu 
-    /// </summary>
-    public int Cpu { get; private set; } = default!;
-    
-    /// <summary>
-    /// 内存
-    /// </summary>
-    public int Memory { get; private set; } = default!;
-    
+    public Resource? UsageResource { get; private set; }
 }

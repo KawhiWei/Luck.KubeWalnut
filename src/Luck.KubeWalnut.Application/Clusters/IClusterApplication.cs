@@ -1,7 +1,7 @@
 
 namespace Luck.KubeWalnut.Application.Clusters;
 
-public interface IClusterApplication:IScopedDependency
+public interface IClusterApplication
 {
     Task CreateClusterAsync();
 }
