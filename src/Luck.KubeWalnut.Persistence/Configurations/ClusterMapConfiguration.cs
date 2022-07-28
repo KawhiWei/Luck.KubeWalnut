@@ -7,6 +7,6 @@ public class ClusterMapConfiguration: IEntityTypeConfiguration<Cluster>
     public void Configure(EntityTypeBuilder<Cluster> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.ToTable("luck_walnut_kubernetes_cluster");
+        builder.ToTable("kubewalnut_clusters");
     }
 }
