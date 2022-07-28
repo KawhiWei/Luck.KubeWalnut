@@ -9,6 +9,7 @@
         <PackageReference Include="KubernetesClient" Version="8.0.12" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\Luck.KubeWalnut.Domain\Luck.KubeWalnut.Domain.csproj" />
       <ProjectReference Include="..\Luck.KubeWalnut.Infrastructure\Luck.KubeWalnut.Infrastructure.csproj" />
     </ItemGroup>
 </Project>

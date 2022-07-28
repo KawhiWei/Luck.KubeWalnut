@@ -1,12 +1,11 @@
 using Luck.Framework.Infrastructure.DependencyInjectionModule;
+using Luck.KubeWalnut.Domain.AggregateRoots.Clusters;
 
 namespace Luck.KubeWalnut.Adapter.KubernetesAdaper;
 
 public interface IKubernetesResource:IScopedDependency
 {
-
-
-     void GetNodeListAsync();
+     Task<List<KubernetesNode>> GetNodeListAsync();
 
 
      void GetNameSpaceListAsync();
