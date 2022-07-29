@@ -81,9 +81,10 @@ public class KubernetesResource : IKubernetesResource
             }
 
             #endregion
-
+            List<IpAddress> ipAddresses=  v1Node.Status.Addresses.Select(x=>new IpAddress(x.Type,x.Address)).ToList();
+            
             KubernetesNode kubernetesNode = new KubernetesNode(v1Node.Metadata.Name, v1Node.Status.NodeInfo.KubeProxyVersion, v1Node.Status.NodeInfo.OsImage,
-                v1Node.Status.NodeInfo.OperatingSystem, v1Node.Status.NodeInfo.ContainerRuntimeVersion, "",
+                v1Node.Status.NodeInfo.OperatingSystem, v1Node.Status.NodeInfo.ContainerRuntimeVersion, ipAddresses,
                 capacityResource, allocatableResource, usageResource);
             return kubernetesNode;
         }));
