@@ -2,20 +2,25 @@ namespace Luck.KubeWalnut.Domain.AggregateRoots.Clusters;
 
 public class Resource
 {
-    public Resource(double cpu, double memory)
+    public Resource(double cpu, double memory, int pod)
     {
         Cpu = cpu;
         Memory = memory;
+        Pod = pod;
     }
 
     /// <summary>
     /// Cpu 
     /// </summary>
-    public double Cpu { get; private set; } = default!;
-    
+    public double Cpu { get; private set; }
+
     /// <summary>
     /// 内存
     /// </summary>
-    public double Memory { get; private set; } = default!;
-    
+    public double Memory { get; private set; }
+
+    /// <summary>
+    /// Pod数量
+    /// </summary>
+    public int Pod { get; private set; }
 }

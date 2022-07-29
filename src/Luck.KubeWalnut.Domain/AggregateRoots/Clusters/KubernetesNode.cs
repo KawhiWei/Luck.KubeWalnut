@@ -4,10 +4,10 @@ public class KubernetesNode
 {
     public KubernetesNode(string name, string kubernetesVersion, string osImage, string operatingSystem,
         string containerRuntimeVersion, List<IpAddress> ipAddresses, Resource capacityResource, Resource allocatableResource,
-        Resource? usageResource)
+        Resource usageResource)
     {
         KubernetesVersion = kubernetesVersion;
-        OSImage = osImage;
+        OsImage = osImage;
         OperatingSystem = operatingSystem;
         ContainerRuntimeVersion = containerRuntimeVersion;
         IpAddresses = new List<IpAddress>(ipAddresses);
@@ -32,7 +32,7 @@ public class KubernetesNode
     /// <summary>
     /// 操作系统
     /// </summary>
-    public string OSImage { get; private set; }
+    public string OsImage { get; private set; }
 
     /// <summary>
     /// 操作系统类型
@@ -43,11 +43,6 @@ public class KubernetesNode
     /// Kubernetes Runtime Version
     /// </summary>
     public string ContainerRuntimeVersion { get; private set; }
-    
-    // /// <summary>
-    // /// 版本
-    // /// </summary>
-    // public string  KubernetesVersion  { get; private set; } = default!;
 
     /// <summary>
     /// 总资源
@@ -62,11 +57,18 @@ public class KubernetesNode
     /// <summary>
     /// 已用资源
     /// </summary>
-    public Resource? UsageResource { get; private set; }
+    public Resource UsageResource { get; private set; }
 
     /// <summary>
     /// Ip地址列表
     /// </summary>
     public List<IpAddress> IpAddresses { get; private set; }
-    
+
+
+
+
+    #region Method
+
+    #endregion
+
 }

@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication<AppWebModule>();
 var app = builder.Build();
-
+app.UsePathBase("/kubewalnut");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -20,7 +20,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseAuthorization();
-
+app.UseRouting();
 app.MapControllers();
 app.InitializeApplication();
 app.Run();

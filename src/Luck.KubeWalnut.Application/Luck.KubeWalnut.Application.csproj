@@ -7,7 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Luck.KubeWalnut.Adapter\Luck.KubeWalnut.Adapter.csproj" />
       <ProjectReference Include="..\Luck.KubeWalnut.Domain\Luck.KubeWalnut.Domain.csproj" />
+      <ProjectReference Include="..\Luck.KubeWalnut.Dto\Luck.KubeWalnut.Dto.csproj" />
       <ProjectReference Include="..\Luck.KubeWalnut.Infrastructure\Luck.KubeWalnut.Infrastructure.csproj" />
     </ItemGroup>
 

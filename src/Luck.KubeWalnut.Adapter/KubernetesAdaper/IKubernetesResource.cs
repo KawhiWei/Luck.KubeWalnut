@@ -12,7 +12,7 @@ public interface IKubernetesResource:IScopedDependency
      Task<List<KubernetesNode>> GetNodeListAsync(string config);
 
 
-     void GetNameSpaceListAsync();
+     Task GetNameSpaceListAsync(string config);
 
 
      void GetPodListAsync();

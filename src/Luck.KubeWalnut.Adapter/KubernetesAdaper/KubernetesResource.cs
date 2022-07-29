@@ -25,75 +25,42 @@ public class KubernetesResource : IKubernetesResource
         List<KubernetesNode> kubernetesNodes = new List<KubernetesNode>(v1NodeList.Items.Count);
         kubernetesNodes.AddRange(v1NodeList.Items.Select(v1Node =>
         {
-            double cpu = 0;
-            double memory = 0;
+            Resource capacityResource = CreateResource(v1Node.Status.Capacity) ??
+                                        new Resource(0, 0, 0);
 
-            #region 总资源
+            Resource allocatableResource = CreateResource(v1Node.Status.Allocatable) ??
+                                           new Resource(0, 0, 0);
 
-            if (v1Node.Status.Capacity.TryGetValue(KubernetesConstants.Cpu, out var capacityCpu))
-            {
-                cpu = Math.Round(capacityCpu.ToDouble() * 100) / 100;
-            }
-
-            if (v1Node.Status.Capacity.TryGetValue(KubernetesConstants.Memory, out var capacityMemory))
-            {
-                memory = Math.Round(capacityMemory.ToDouble() / transferNumber * 100) / 100;
-            }
-
-            Resource capacityResource = new Resource(cpu, memory);
-
-            #endregion
-
-            #region 可用资源
-
-            if (v1Node.Status.Allocatable.TryGetValue(KubernetesConstants.Cpu, out var allocatableCpu))
-            {
-                cpu = Math.Round(allocatableCpu.ToDouble() * 100) / 100;
-            }
-
-            if (v1Node.Status.Allocatable.TryGetValue(KubernetesConstants.Memory, out var allocatableMemory))
-            {
-                memory = Math.Round(allocatableMemory.ToDouble() / transferNumber * 100) / 100;
-            }
-
-            Resource allocatableResource = new Resource(cpu, memory);
-
-            #endregion
-
-            #region 已用资源
-
-            Resource? usageResource = null;
+            Resource? usageResource = new Resource(0, 0, 0);
             var metric =
                 nodeMetricsList.Items.FirstOrDefault(nodeMetrics => nodeMetrics.Metadata.Name == v1Node.Metadata.Name);
             if (metric is not null)
             {
-                if (metric.Usage.TryGetValue(KubernetesConstants.Cpu, out var usageCpu))
-                {
-                    cpu = Math.Round(usageCpu.ToDouble() * 100) / 100;
-                }
-
-                if (metric.Usage.TryGetValue(KubernetesConstants.Memory, out var usageMemory))
-                {
-                    memory = Math.Round(usageMemory.ToDouble() / transferNumber * 100) / 100;
-                }
-
-                usageResource = new Resource(cpu, memory);
+                usageResource = CreateResource(metric.Usage) ??
+                                new Resource(0, 0, 0);
             }
+            List<IpAddress> ipAddresses =
+                v1Node.Status.Addresses.Select(x => new IpAddress(x.Type, x.Address)).ToList();
 
-            #endregion
-            List<IpAddress> ipAddresses=  v1Node.Status.Addresses.Select(x=>new IpAddress(x.Type,x.Address)).ToList();
-            
-            KubernetesNode kubernetesNode = new KubernetesNode(v1Node.Metadata.Name, v1Node.Status.NodeInfo.KubeProxyVersion, v1Node.Status.NodeInfo.OsImage,
+            KubernetesNode kubernetesNode = new KubernetesNode(v1Node.Metadata.Name,
+                v1Node.Status.NodeInfo.KubeProxyVersion, v1Node.Status.NodeInfo.OsImage,
                 v1Node.Status.NodeInfo.OperatingSystem, v1Node.Status.NodeInfo.ContainerRuntimeVersion, ipAddresses,
                 capacityResource, allocatableResource, usageResource);
+
+            
             return kubernetesNode;
         }));
         return kubernetesNodes;
     }
 
-    public void GetNameSpaceListAsync()
+    public async Task GetNameSpaceListAsync(string config)
     {
-        throw new NotImplementedException();
+        IKubernetes client = GetClient(config);
+        var nameSpace = await client.CoreV1.ListNamespaceAsync();
+        foreach (var item in nameSpace.Items)
+        {
+            Console.WriteLine(item.Metadata.Name);
+        }
     }
 
     public void GetPodListAsync()
@@ -106,14 +73,46 @@ public class KubernetesResource : IKubernetesResource
         throw new NotImplementedException();
     }
 
-    private async Task<NodeMetricsList> GetKubernetesNodesMetricsAsync(IKubernetes client)
-    {
-        return await client.GetKubernetesNodesMetricsAsync();
-    }
 
+
+    #region 私有方法
 
     private IKubernetes GetClient(string config)
     {
         return _kubernetesClientFactory.GetKubernetesClient(config);
     }
+
+    private ResourceQuantity? GetResourceQuantity(string key, IDictionary<string, ResourceQuantity> allocatable)
+    {
+        if (allocatable.TryGetValue(key, out var resourceQuantity))
+        {
+            return resourceQuantity;
+        }
+
+        return null;
+    }
+
+
+    private Resource? CreateResource(
+        IDictionary<string, ResourceQuantity> resourceQuantities)
+    {
+        ResourceQuantity? cpuResourceQuantity = null;
+        ResourceQuantity? memoryResourceQuantity = null;
+        ResourceQuantity? podResourceQuantity = null;
+
+        cpuResourceQuantity = GetResourceQuantity(KubernetesConstants.Cpu, resourceQuantities);
+        memoryResourceQuantity = GetResourceQuantity(KubernetesConstants.Memory, resourceQuantities);
+        podResourceQuantity = GetResourceQuantity(KubernetesConstants.Pod, resourceQuantities);
+        
+        double cpu = cpuResourceQuantity == null ? 0 : Math.Round(cpuResourceQuantity.ToDouble() * 100) / 100;
+        double memory = memoryResourceQuantity == null
+            ? 0
+            : Math.Round(memoryResourceQuantity.ToDouble() / transferNumber * 100) / 100;
+
+        int pod = podResourceQuantity?.ToInt32() ?? 0;
+        return new Resource(cpu, memory, pod);
+    }
+
+    #endregion
+    
 }
