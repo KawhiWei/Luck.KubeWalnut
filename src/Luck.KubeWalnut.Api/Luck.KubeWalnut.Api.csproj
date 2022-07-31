@@ -9,10 +9,12 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Luck.AspNetCore" Version="1.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Luck.KubeWalnut.Adapter\Luck.KubeWalnut.Adapter.csproj" />
     <ProjectReference Include="..\Luck.KubeWalnut.Application\Luck.KubeWalnut.Application.csproj" />
+    <ProjectReference Include="..\Luck.KubeWalnut.Persistence\Luck.KubeWalnut.Persistence.csproj" />
   </ItemGroup>
 </Project>

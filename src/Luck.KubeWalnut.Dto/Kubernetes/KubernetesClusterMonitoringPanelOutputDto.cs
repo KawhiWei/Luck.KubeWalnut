@@ -1,6 +1,6 @@
 ﻿namespace Luck.KubeWalnut.Dto.Kubernetes;
 
-public class KubernetesClusterOutputDto
+public class KubernetesClusterMonitoringPanelOutputDto
 {
     
     /// <summary>
@@ -23,6 +23,26 @@ public class KubernetesClusterOutputDto
     /// </summary>
     public  double ClusterTotalMemoryUsage { get; set; }= default!;
 
+    /// <summary>
+    /// 集群可部署pod数量
+    /// </summary>
+    public  int ClusterTotalPodCapacity { get; set; }= default!;
+
+    /// <summary>
+    /// 集群已部署pod数量 
+    /// </summary>
+    public int ClusterTotalPodUsage { get; set; }
+    
+    public int DaemonSetTotal { get; set; } = default!;
+    
+    public int JobTotal { get; set; } = default!;
+    
+    public int NamespaceTotal { get; set; } = default!;
+    
+    public int ReplicaSetTotal { get; set; } = default!;
+    
+    public int StatefulSetTotal { get; set; } = default!;
+    
     /// <summary>
     /// 节点列表
     /// </summary>

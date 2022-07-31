@@ -8,5 +8,5 @@ public interface IClusterApplication:IScopedDependency
     Task CreateClusterAsync();
 
 
-    Task<KubernetesClusterOutputDto> GetClusterInformationAsync(string config);
+    Task<KubernetesClusterMonitoringPanelOutputDto> GetClusterInformationAsync(string id);
 }

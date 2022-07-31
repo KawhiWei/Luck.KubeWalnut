@@ -1,5 +1,5 @@
 using Luck.Framework.Infrastructure.DependencyInjectionModule;
-using Luck.KubeWalnut.Domain.AggregateRoots.Clusters;
+using Luck.KubeWalnut.Domain.AggregateRoots.Kubernetes;
 
 namespace Luck.KubeWalnut.Adapter.KubernetesAdaper;
 
@@ -9,14 +9,14 @@ public interface IKubernetesResource:IScopedDependency
      /// 获取K8s节点信息
      /// </summary>
      /// <returns></returns>
-     Task<List<KubernetesNode>> GetNodeListAsync(string config);
+     Task<KubernetesManager> GetNodeListAsync(string config);
 
 
      Task GetNameSpaceListAsync(string config);
 
 
-     void GetPodListAsync();
+     Task<object> GetPodListAsync(string config);
      
-     void GetPodListAsync(string nameSpace);
+     Task<object> GetPodListAsync(string config,string nameSpace);
 
 }

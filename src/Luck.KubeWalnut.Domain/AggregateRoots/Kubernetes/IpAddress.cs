@@ -1,4 +1,4 @@
-namespace Luck.KubeWalnut.Domain.AggregateRoots.Clusters;
+namespace Luck.KubeWalnut.Domain.AggregateRoots.Kubernetes;
 
 public class IpAddress
 {

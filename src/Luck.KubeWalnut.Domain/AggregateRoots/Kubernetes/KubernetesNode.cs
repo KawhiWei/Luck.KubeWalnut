@@ -1,28 +1,22 @@
-namespace Luck.KubeWalnut.Domain.AggregateRoots.Clusters;
+namespace Luck.KubeWalnut.Domain.AggregateRoots.Kubernetes;
 
-public class KubernetesNode
+public class KubernetesNode:KubernetesResourceBase
 {
     public KubernetesNode(string name, string kubernetesVersion, string osImage, string operatingSystem,
         string containerRuntimeVersion, List<IpAddress> ipAddresses, Resource capacityResource, Resource allocatableResource,
-        Resource usageResource)
+        Resource usageResource):base(name)
     {
         KubernetesVersion = kubernetesVersion;
         OsImage = osImage;
         OperatingSystem = operatingSystem;
         ContainerRuntimeVersion = containerRuntimeVersion;
         IpAddresses = new List<IpAddress>(ipAddresses);
-        Name = name;
         CapacityResource = capacityResource;
         AllocatableResource = allocatableResource;
         UsageResource = usageResource;
         
         
     }
-
-    /// <summary>
-    /// 节点名称
-    /// </summary>
-    public string Name { get; private set; }
 
     /// <summary>
     /// 版本
@@ -40,7 +34,7 @@ public class KubernetesNode
     public string OperatingSystem { get; private set; }
 
     /// <summary>
-    /// Kubernetes Runtime Version
+    /// KubernetesManager Runtime Version
     /// </summary>
     public string ContainerRuntimeVersion { get; private set; }
 
