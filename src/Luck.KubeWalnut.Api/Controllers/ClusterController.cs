@@ -1,4 +1,5 @@
 using Luck.KubeWalnut.Application.Clusters;
+using Luck.KubeWalnut.Dto.Clusteries;
 using Luck.KubeWalnut.Dto.Kubernetes;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,9 +23,16 @@ public class ClusterController : BaseController
         await _clusterApplication.CreateClusterAsync();
     }
 
-    [HttpGet]
-    public async Task<KubernetesClusterMonitoringPanelOutputDto> GetNodeListAsync()
+    [HttpGet("{id}")]
+    public async Task<KubernetesClusterMonitoringPanelOutputDto> GetClusterInformationAsync(string id)
     {
-        return await _clusterApplication.GetClusterInformationAsync( @"");
+        return await _clusterApplication.GetClusterInformationAsync(id);
     }
+
+    [HttpGet("clusterlist")]
+    public Task<List<ClusterOutputDto>> GetClusterList()
+    {
+        return _clusterApplication.GetClusterListAsync();
+    }
+    
 }

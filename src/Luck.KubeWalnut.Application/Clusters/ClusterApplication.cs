@@ -4,6 +4,7 @@ using Luck.KubeWalnut.Adapter.KubernetesAdaper;
 using Luck.KubeWalnut.Domain.AggregateRoots.Clusters;
 using Luck.KubeWalnut.Domain.AggregateRoots.Kubernetes;
 using Luck.KubeWalnut.Domain.Repositories.Clusters;
+using Luck.KubeWalnut.Dto.Clusteries;
 using Luck.KubeWalnut.Dto.Kubernetes;
 
 
@@ -32,13 +33,25 @@ public class ClusterApplication : IClusterApplication
 
     public async Task<KubernetesClusterMonitoringPanelOutputDto> GetClusterInformationAsync(string id)
     {
-        var cluster= await _clusterRepository.FindAll().FirstOrDefaultAsync(x => x.Id == "62e622a0207efe333b1fdaa0");
+        var cluster = await _clusterRepository.FindAll().FirstOrDefaultAsync(x => x.Id ==id);
         if (cluster is null)
             throw new BusinessException("集群不存在");
         var kubernetes = await _kubernetesResource.GetNodeListAsync(cluster.Config);
         return GetKubernetesClusterOutputDto(kubernetes);
     }
-    
+
+
+    public Task<List<ClusterOutputDto>> GetClusterListAsync()
+    {
+        return _clusterRepository.FindAll().Select(x => new ClusterOutputDto()
+        {
+            Id = x.Id,
+            Name = x.Name,
+            NickName = x.NickName
+        }).ToListAsync();
+    }
+
+
     private KubernetesClusterMonitoringPanelOutputDto GetKubernetesClusterOutputDto(KubernetesManager kubernetesManager)
     {
         var kubernetesClusterOutputDto = new KubernetesClusterMonitoringPanelOutputDto()
