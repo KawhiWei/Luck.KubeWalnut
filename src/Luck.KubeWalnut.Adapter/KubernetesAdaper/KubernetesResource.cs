@@ -72,6 +72,12 @@ public class KubernetesResource : IKubernetesResource
     public async Task GetNameSpaceListAsync(string config)
     {
         IKubernetes client = GetClient(config);
+
+
+       var result= await client.CoreV1.CreateNamespaceAsync(new V1Namespace()
+        {
+
+        });
         var nameSpace = await client.CoreV1.ListNamespaceAsync();
         foreach (var item in nameSpace.Items)
         {
